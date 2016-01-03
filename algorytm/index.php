@@ -40,8 +40,8 @@ for ($i = 0; $i < $taskCount; $i++) {
         $pickups[] = $task;
     } else {
         $drops[] = $task;
-        $task->setRelatedTaskId($tasks[$i-1]->getId());
-        $tasks[$i-1]->setRelatedTaskId($task->getId());
+        $task->setRelatedTaskId($tasks[$i - 1]->getId());
+        $tasks[$i - 1]->setRelatedTaskId($task->getId());
     }
     $tasks[] = $task;
 }
@@ -93,7 +93,7 @@ for ($i = 1; $i <= $resourceCount; $i++) {
             /**
              * Wypisywanie
              */
-            for ($l = 0, $index = $j - 1 + $m; $l < $resourceCount - $m - 1; $l++, $index++, $k++) {
+            for ($l = 0, $index = $j - 1 + $m; $l < $resourceCount - $m; $l++, $index++, $k++) {
                 if ($index >= $resourceCount) {
                     $index = 0;
                 }
@@ -120,6 +120,84 @@ for ($i = 1; $i <= $resourceCount; $i++) {
 }
 sort($possibleResourceCombination);
 
-//echo json_encode($possibleResourceCombination);
+echo json_encode($possibleResourceCombination);
+die();
+
+/*
+ * Schemat działania algorytmu dla 1 zasobu i 2 zadań
+ * [ [0], [2]]
+ * [ [ [0,1],[0,2] ], [[2,0], [2,3]] ]
+ * [ [ [ [0,1,2] ], [ [0,2,1], [0,2,3] ], [ [2,0,1], [2,0,3] ], [ [2,3,0] ] ] ]
+ * [[0,1,2,3], [0,2,1,3], [0,2,3,1], [2,0,1,3], [2,0,3,1], [2,3,0,1]]
+ */
+
+/**
+ * Sprawdzanie, czy wszystkie elementy listy zawierają wszystkie zadania
+ * @param type $list
+ * @return boolean
+ */
+function checkList($list, $tasks)
+{
+    if (empty($list)) {
+        return true;
+    }
+    foreach ($list as $l) {
+        if (count($l) < count($tasks)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function getNeighbours($list, $tasks)
+{
+    $neighbours = [];
+    for ($i = count($list) - 1; $i >= 0; $i--) {
+        for ($j = 0; $j < count($tasks); $j++) {
+            if ($list[$i]->getTask() === $tasks[$j]->getTask() 
+                    && $list[$i]->getId() != $tasks[$j]->getId()
+                    && !in_array($tasks[$j], $list)) {
+                $neighbours[] = $tasks[$j];
+            }
+        }
+    }
+    for ($i = 0; $i < count($tasks); $i++) {
+        if (!in_array($tasks[$i], $list) && $tasks[$i]->getType() == Task::TYPE_PICKUP) {
+            $neighbours[] = $tasks[$i];
+        }
+    }
+    return $neighbours;
+}
+
+/**
+ * Algorytm naiwny dla 1 zasobu.
+ */
+$finalList = [];
+
+for ($i = 0; $i < $pickupCount; $i++) {
+    $list = [];
+    while (checkList($list, $tasks)) {
+        if (empty($list)) {
+            $list[] = [$pickups[$i]];
+        } else {
+            /**
+             * Rozszerzanie listy
+             */
+            $beginList = [];
+            for ($j = 0; $j < count($list); $j++) {
+                $neighbours = getNeighbours($list[$j], $tasks);
+                for ($k = 0; $k < count($neighbours); $k++) {
+                    $tmpArray = $list[$j];
+                    $tmpArray[] = $neighbours[$k];
+                    $beginList[] = $tmpArray;
+                }
+            }
+            $list = $beginList;
+        }
+    }
+
+    $finalList[] = $list;
+}
+print_r($finalList);
 
 
