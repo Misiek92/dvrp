@@ -28,7 +28,7 @@ class Task extends POI implements JsonSerializable
     
     function setRelatedTaskId($related)
     {
-        $this->related = $related;
+        $this->relatedTaskId = (int) $related;
     }
 
     /*

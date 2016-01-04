@@ -120,8 +120,9 @@ for ($i = 1; $i <= $resourceCount; $i++) {
 }
 sort($possibleResourceCombination);
 
-echo json_encode($possibleResourceCombination);
-die();
+
+//echo json_encode($possibleResourceCombination);
+//die();
 
 /*
  * Schemat działania algorytmu dla 1 zasobu i 2 zadań
@@ -154,9 +155,7 @@ function getNeighbours($list, $tasks)
     $neighbours = [];
     for ($i = count($list) - 1; $i >= 0; $i--) {
         for ($j = 0; $j < count($tasks); $j++) {
-            if ($list[$i]->getTask() === $tasks[$j]->getTask() 
-                    && $list[$i]->getId() != $tasks[$j]->getId()
-                    && !in_array($tasks[$j], $list)) {
+            if ($list[$i]->getTask() === $tasks[$j]->getTask() && $list[$i]->getId() != $tasks[$j]->getId() && !in_array($tasks[$j], $list)) {
                 $neighbours[] = $tasks[$j];
             }
         }
@@ -169,35 +168,133 @@ function getNeighbours($list, $tasks)
     return $neighbours;
 }
 
+function getRelated($obj)
+{
+    for ($i = 0; $i < count($tasks); $i++) {
+        if ($obj->getRelatedTaskId() == $tasks[$i]->getId()) {
+            return $tasks[$i];
+        }
+    }
+    return false;
+}
+
 /**
  * Algorytm naiwny dla 1 zasobu.
  */
-$finalList = [];
+//$oneList = [];
+//
+//for ($i = 0; $i < $pickupCount; $i++) {
+//    $list = [];
+//    while (checkList($list, $tasks)) {
+//        if (empty($list)) {
+//            $list[] = [$pickups[$i]];
+//        } else {
+//            /**
+//             * Rozszerzanie listy
+//             */
+//            $beginList = [];
+//            for ($j = 0; $j < count($list); $j++) {
+//                $neighbours = getNeighbours($list[$j], $tasks);
+//                for ($k = 0; $k < count($neighbours); $k++) {
+//                    $tmpArray = $list[$j];
+//                    $tmpArray[] = $neighbours[$k];
+//                    $beginList[] = $tmpArray;
+//                }
+//            }
+//            $list = $beginList;
+//        }
+//    }
+//    $oneList = array_merge($oneList, $list);
+//}
+//print_r($oneList);
 
-for ($i = 0; $i < $pickupCount; $i++) {
-    $list = [];
-    while (checkList($list, $tasks)) {
-        if (empty($list)) {
-            $list[] = [$pickups[$i]];
-        } else {
-            /**
-             * Rozszerzanie listy
-             */
-            $beginList = [];
-            for ($j = 0; $j < count($list); $j++) {
-                $neighbours = getNeighbours($list[$j], $tasks);
-                for ($k = 0; $k < count($neighbours); $k++) {
-                    $tmpArray = $list[$j];
-                    $tmpArray[] = $neighbours[$k];
-                    $beginList[] = $tmpArray;
+$possible = [];
+for ($m = 0; $m <= floor($pickupCount / 2) || $m === 0; $m++) {
+    $removed = [];
+    $otherSolutions = true;
+    $specialTaskList = $tasks;
+    $specialPickupList = $pickups;
+    while ($otherSolutions) {
+        if ($m != 0) {
+            if (empty($removed)) {
+                for ($o = 0; $o < $m; $o++) {
+                    $removed[] = $pickups[$o];
+                    array_splice($specialTaskList, $o * 2, 2);
+                    array_splice($specialPickupList, $o, 1);
+                }
+            } else {
+
+                $index = count($removed) - 1;
+                $changedRemoved = false;
+                $nothingToChange = false;
+                while (!$changedRemoved && !$nothingToChange) {
+                    if (array_search($removed[$index], $pickups) !== count($pickups) - 1 && $index >= 0) {
+                        $position = array_search($removed[$index], $pickups);
+                        $position++;
+                        if (!isset($removed[$index + 1]) || $removed[$index + 1] != $pickups[$position]) {
+                            //
+//                            $specialTaskList[] = $removed[$index];
+//                            $specialTaskList[] = getRelated($removed[$index]);
+//                            array_splice($specialTaskList, $position * 2, 2);
+                            //
+                            $removed[$index] = $pickups[$position];
+                            // trzeba zmodyfikować $specialTaskList i $specialPickupList
+                            $changedRemoved = true;
+                        } else {
+                            $index--;
+                            break;
+                        }
+                        if ($index != count($removed) - 1) {
+                            for ($o = $index + 1, $inc = 1; $o < count($removed); $o++, $inc++) {
+                                $removed[$o] = $pickups[$position + $inc];
+                                // trzeba zmodyfikować $specialTaskList i $specialPickupList
+                            }
+                        }
+                    } elseif ($index > 0) {
+                        $index--;
+                    } else {
+                        $nothingToChange = true;
+                    }
+                }
+                if ($nothingToChange) {
+                    $otherSolutions = false;
+                    break;
                 }
             }
-            $list = $beginList;
+        } else {
+            $otherSolutions = false;
         }
-    }
 
-    $finalList[] = $list;
+        // old
+        $oneList = [];
+        for ($i = 0; $i < count($specialPickupList); $i++) {
+            $list = [];
+            while (checkList($list, $specialTaskList)) {
+                if (empty($list)) {
+                    $list[] = [$specialPickupList[$i]];
+                } else {
+                    /**
+                     * Rozszerzanie listy
+                     */
+                    $beginList = [];
+                    for ($j = 0; $j < count($list); $j++) {
+                        $neighbours = getNeighbours($list[$j], $specialTaskList);
+                        for ($k = 0; $k < count($neighbours); $k++) {
+                            $tmpArray = $list[$j];
+                            $tmpArray[] = $neighbours[$k];
+                            $beginList[] = $tmpArray;
+                        }
+                    }
+                    $list = $beginList;
+                }
+            }
+            $oneList = array_merge($oneList, $list);
+        }
+        $possible[] = $oneList;
+        //new
+    }
 }
-print_r($finalList);
+
+print_r($possible);
 
 
