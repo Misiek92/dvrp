@@ -178,6 +178,11 @@ function getRelated($obj)
     return false;
 }
 
+function cmp($a, $b)
+{
+    return strcmp($a->getId(), $b->getId());
+}
+
 /**
  * Algorytm naiwny dla 1 zasobu.
  */
@@ -209,36 +214,59 @@ function getRelated($obj)
 //print_r($oneList);
 
 $possible = [];
+$operations = 0;
 for ($m = 0; $m <= floor($pickupCount / 2) || $m === 0; $m++) {
     $removed = [];
     $otherSolutions = true;
     $specialTaskList = $tasks;
     $specialPickupList = $pickups;
+    $test = 0;
     while ($otherSolutions) {
         if ($m != 0) {
             if (empty($removed)) {
                 for ($o = 0; $o < $m; $o++) {
                     $removed[] = $pickups[$o];
-                    array_splice($specialTaskList, $o * 2, 2);
-                    array_splice($specialPickupList, $o, 1);
                 }
+                array_splice($specialTaskList, 0, $m * 2);
+                array_splice($specialPickupList, 0, $m);
             } else {
 
                 $index = count($removed) - 1;
                 $changedRemoved = false;
                 $nothingToChange = false;
                 while (!$changedRemoved && !$nothingToChange) {
+                    $stopFlag = true;
+                    for ($c = count($removed) - 1, $d = 1; $c >= 0; $c--, $d++) {
+                        if (array_search($removed[$c], $pickups) !== count($pickups) - $d) {
+                            $stopFlag = false;
+                        }
+                    }
+
+                    if ($stopFlag) {
+                        $nothingToChange = true;
+                        $otherSolutions = false;
+                        break;
+                    }
+
                     if (array_search($removed[$index], $pickups) !== count($pickups) - 1 && $index >= 0) {
-                        $position = array_search($removed[$index], $pickups);
-                        $position++;
+                        $rawPosition = array_search($removed[$index], $pickups);
+                        $position = $rawPosition + 1;
                         if (!isset($removed[$index + 1]) || $removed[$index + 1] != $pickups[$position]) {
-                            //
-//                            $specialTaskList[] = $removed[$index];
-//                            $specialTaskList[] = getRelated($removed[$index]);
-//                            array_splice($specialTaskList, $position * 2, 2);
-                            //
+//                            array_splice($specialPickupList, $rawPosition - ($m - 1), 0, [$removed[$index]]);
+//                            array_splice($specialTaskList, ($rawPosition - ($m - 1)) * 2, 0, [$tasks[$rawPosition * 2], $tasks[$rawPosition * 2 + 1]]);
+                            $specialPickupList[] = $removed[$index];
+                            $specialTaskList[] = $tasks[$rawPosition * 2];
+                            $specialTaskList[] = $tasks[$rawPosition * 2 + 1];
+                            usort($specialPickupList, "cmp");
+                            usort($specialTaskList, "cmp");
                             $removed[$index] = $pickups[$position];
-                            // trzeba zmodyfikować $specialTaskList i $specialPickupList
+
+                            array_splice($specialPickupList, array_search($removed[$index], $specialPickupList), 1);
+                            array_splice($specialTaskList, array_search($removed[$index], $specialTaskList), 2);
+
+//                            array_splice($specialPickupList, $position - ($m - 1), 1);
+//                            array_splice($specialTaskList, ($position - ($m - 1)) * 2, 2);
+                            //die(print_r($specialPickupList));
                             $changedRemoved = true;
                         } else {
                             $index--;
@@ -246,8 +274,20 @@ for ($m = 0; $m <= floor($pickupCount / 2) || $m === 0; $m++) {
                         }
                         if ($index != count($removed) - 1) {
                             for ($o = $index + 1, $inc = 1; $o < count($removed); $o++, $inc++) {
+                                $rawPosition = array_search($removed[$o], $pickups);
+//                                array_splice($specialPickupList, $rawPosition - ($m - 1), 0, [$removed[$o]]);
+//                                array_splice($specialTaskList, ($rawPosition - ($m - 1)) * 2, 0, [$tasks[$rawPosition * 2], $tasks[$rawPosition * 2 + 1]]);
+                                $specialPickupList[] = $removed[$o];
+                                $specialTaskList[] = $tasks[$rawPosition * 2];
+                                $specialTaskList[] = $tasks[$rawPosition * 2 + 1];
+                                usort($specialPickupList, "cmp");
+                                usort($specialTaskList, "cmp");
                                 $removed[$o] = $pickups[$position + $inc];
-                                // trzeba zmodyfikować $specialTaskList i $specialPickupList
+                                array_splice($specialPickupList, array_search($removed[$o], $specialPickupList), 1);
+                                array_splice($specialTaskList, array_search($removed[$o], $specialTaskList), 2);
+
+//                                array_splice($specialPickupList, $position + $inc - ($m - 1), 1);
+//                                array_splice($specialTaskList, ($position + $inc - ($m - 1)) * 2, 2);
                             }
                         }
                     } elseif ($index > 0) {
@@ -285,16 +325,22 @@ for ($m = 0; $m <= floor($pickupCount / 2) || $m === 0; $m++) {
                             $beginList[] = $tmpArray;
                         }
                     }
+
                     $list = $beginList;
                 }
             }
             $oneList = array_merge($oneList, $list);
         }
+        $operations += count($oneList);
         $possible[] = $oneList;
         //new
+
+        $test++;
     }
 }
 
-print_r($possible);
+//print_r($possible);
+//echo json_encode($possible);
+echo "Wyników: ". $operations;
 
 
