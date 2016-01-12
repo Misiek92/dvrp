@@ -72,6 +72,19 @@ function distance($lon1, $lat1, $lon2, $lat2)
 }
 
 /**
+ * Obliczanie dystansu na podstawie wzoru pitagorsa,
+ * bardziej adekwatny dla odległości przedstawionych na płaszczyźnie
+ */
+function distance2($lon1, $lat1, $lon2, $lat2)
+{
+    $lon = [$lon1, $lon2];
+    sort($lon);
+    $lat = [$lat1, $lat2];
+    sort($lat);
+    return pow(($lon[1] - $lon[0]), 2) + pow(($lat[1] - $lat[0]), 2);
+}
+
+/**
  * Ilość zaobów
  * wpierw dla jednego wszystkie scenariusze, potem dla 2... aż do wszystkich
  */
@@ -121,8 +134,8 @@ for ($i = 1; $i <= $resourceCount; $i++) {
 sort($possibleResourceCombination);
 
 
-//echo json_encode($possibleResourceCombination);
-//die();
+echo json_encode($possibleResourceCombination);
+die();
 
 /*
  * Schemat działania algorytmu dla 1 zasobu i 2 zadań
@@ -150,6 +163,12 @@ function checkList($list, $tasks)
     return false;
 }
 
+/**
+ * Zwraca listę sąsiadów dla danego wierzchołka
+ * @param type $list
+ * @param type $tasks
+ * @return type
+ */
 function getNeighbours($list, $tasks)
 {
     $neighbours = [];
@@ -168,59 +187,42 @@ function getNeighbours($list, $tasks)
     return $neighbours;
 }
 
-function getRelated($obj)
-{
-    for ($i = 0; $i < count($tasks); $i++) {
-        if ($obj->getRelatedTaskId() == $tasks[$i]->getId()) {
-            return $tasks[$i];
-        }
-    }
-    return false;
-}
-
+/**
+ * Sortowanie na podstawie id obiektu
+ * @param type $a
+ * @param type $b
+ * @return type
+ */
 function cmp($a, $b)
 {
     return strcmp($a->getId(), $b->getId());
 }
 
-/**
- * Algorytm naiwny dla 1 zasobu.
- */
-//$oneList = [];
-//
-//for ($i = 0; $i < $pickupCount; $i++) {
-//    $list = [];
-//    while (checkList($list, $tasks)) {
-//        if (empty($list)) {
-//            $list[] = [$pickups[$i]];
-//        } else {
-//            /**
-//             * Rozszerzanie listy
-//             */
-//            $beginList = [];
-//            for ($j = 0; $j < count($list); $j++) {
-//                $neighbours = getNeighbours($list[$j], $tasks);
-//                for ($k = 0; $k < count($neighbours); $k++) {
-//                    $tmpArray = $list[$j];
-//                    $tmpArray[] = $neighbours[$k];
-//                    $beginList[] = $tmpArray;
-//                }
-//            }
-//            $list = $beginList;
-//        }
-//    }
-//    $oneList = array_merge($oneList, $list);
-//}
-//print_r($oneList);
+function subcmp($a, $b)
+{
+    return strcmp($a[0]->getId(), $b[0]->getId());
+}
 
+function getRelated($tasks, Task $obj)
+{
+    foreach ($tasks as $task) {
+        if ($task->getId() == $obj->getRelatedTaskId() && $task != $obj) {
+            return $task;
+        }
+    }
+    return false;
+}
+
+if ($taskCount > 10 || $resourceCount > 3) {
+    echo "Zablokowano możliwość wywołania skryptu dla więcej niż 5 zadań i 3 zasobów";
+    die();
+}
 $possible = [];
-$operations = 0;
 for ($m = 0; $m <= floor($pickupCount / 2) || $m === 0; $m++) {
     $removed = [];
     $otherSolutions = true;
     $specialTaskList = $tasks;
     $specialPickupList = $pickups;
-    $test = 0;
     while ($otherSolutions) {
         if ($m != 0) {
             if (empty($removed)) {
@@ -252,8 +254,6 @@ for ($m = 0; $m <= floor($pickupCount / 2) || $m === 0; $m++) {
                         $rawPosition = array_search($removed[$index], $pickups);
                         $position = $rawPosition + 1;
                         if (!isset($removed[$index + 1]) || $removed[$index + 1] != $pickups[$position]) {
-//                            array_splice($specialPickupList, $rawPosition - ($m - 1), 0, [$removed[$index]]);
-//                            array_splice($specialTaskList, ($rawPosition - ($m - 1)) * 2, 0, [$tasks[$rawPosition * 2], $tasks[$rawPosition * 2 + 1]]);
                             $specialPickupList[] = $removed[$index];
                             $specialTaskList[] = $tasks[$rawPosition * 2];
                             $specialTaskList[] = $tasks[$rawPosition * 2 + 1];
@@ -263,10 +263,6 @@ for ($m = 0; $m <= floor($pickupCount / 2) || $m === 0; $m++) {
 
                             array_splice($specialPickupList, array_search($removed[$index], $specialPickupList), 1);
                             array_splice($specialTaskList, array_search($removed[$index], $specialTaskList), 2);
-
-//                            array_splice($specialPickupList, $position - ($m - 1), 1);
-//                            array_splice($specialTaskList, ($position - ($m - 1)) * 2, 2);
-                            //die(print_r($specialPickupList));
                             $changedRemoved = true;
                         } else {
                             $index--;
@@ -275,8 +271,6 @@ for ($m = 0; $m <= floor($pickupCount / 2) || $m === 0; $m++) {
                         if ($index != count($removed) - 1) {
                             for ($o = $index + 1, $inc = 1; $o < count($removed); $o++, $inc++) {
                                 $rawPosition = array_search($removed[$o], $pickups);
-//                                array_splice($specialPickupList, $rawPosition - ($m - 1), 0, [$removed[$o]]);
-//                                array_splice($specialTaskList, ($rawPosition - ($m - 1)) * 2, 0, [$tasks[$rawPosition * 2], $tasks[$rawPosition * 2 + 1]]);
                                 $specialPickupList[] = $removed[$o];
                                 $specialTaskList[] = $tasks[$rawPosition * 2];
                                 $specialTaskList[] = $tasks[$rawPosition * 2 + 1];
@@ -285,9 +279,6 @@ for ($m = 0; $m <= floor($pickupCount / 2) || $m === 0; $m++) {
                                 $removed[$o] = $pickups[$position + $inc];
                                 array_splice($specialPickupList, array_search($removed[$o], $specialPickupList), 1);
                                 array_splice($specialTaskList, array_search($removed[$o], $specialTaskList), 2);
-
-//                                array_splice($specialPickupList, $position + $inc - ($m - 1), 1);
-//                                array_splice($specialTaskList, ($position + $inc - ($m - 1)) * 2, 2);
                             }
                         }
                     } elseif ($index > 0) {
@@ -325,22 +316,138 @@ for ($m = 0; $m <= floor($pickupCount / 2) || $m === 0; $m++) {
                             $beginList[] = $tmpArray;
                         }
                     }
-
                     $list = $beginList;
                 }
             }
             $oneList = array_merge($oneList, $list);
         }
-        $operations += count($oneList);
-        $possible[] = $oneList;
-        //new
-
-        $test++;
+        for ($i = 0; $i < count($oneList); $i++) {
+            $tmpArray = [];
+            foreach ($removed as $r) {
+                $tmpArray[] = $r;
+                $tmpArray[] = getRelated($tasks, $r);
+            }
+            $oneList[$i] = [$oneList[$i], $tmpArray, []];
+        }
+        $possible = array_merge($possible, $oneList);
+    }
+    if ($resourceCount == 1) {
+        $m = 9;
     }
 }
+$possibleCount = count($possible);
 
-//print_r($possible);
+/**
+ * Wersje dla 3 zasobu
+ */
+if ($resourceCount > 2) {
+    for ($i = 0; $i < $possibleCount; $i++) {
+        if (!empty($possible[$i][1])) {
+            for ($j = 0; $j < floor(count($possible[$i][0]) / 4); $j++) {
+                $tmp = $possible[$i];
+                $removedTask = [];
+                for ($k = $j; $k >= 0; $k--) {
+                    $removedTask[] = $tmp[0][$k];
+                    $relatedPosition = array_search(getRelated($tmp[0], $tmp[0][$k]), $tmp[0]);
+                    $removedTask[] = $tmp[0][$relatedPosition];
+                    array_splice($tmp[0], $relatedPosition, 1);
+                    array_splice($tmp[0], $k, 1);
+                }
+                $tmp[2] = $removedTask;
+                usort($tmp, "subcmp");
+                // Prostsza wersja usuwania dubli, moze byc nieskuteczna w 100%
+                if ($tmp != $possible[count($possible) - 1]) {
+                    $possible[] = $tmp;
+                }
+            }
+        }
+    }
+    /**
+     * usuwanie dubli bardzo zwalnia
+     */
+//    for ($i = count($possible) - 1; $i >= 0; $i--) {
+//        if (array_search($possible[$i], $possible) != $i) {
+//            array_splice($possible, $i, 1);
+//        }
+//    }
+}
+
+function permutation($items, $perms = array())
+{
+    if (empty($items)) {
+        $return = array($perms);
+    } else {
+        $return = array();
+        for ($i = count($items) - 1; $i >= 0; --$i) {
+            $newitems = $items;
+            $newperms = $perms;
+            list($foo) = array_splice($newitems, $i, 1);
+            array_unshift($newperms, $foo);
+            $return = array_merge($return, permutation($newitems, $newperms));
+        }
+    }
+    return $return;
+}
+
+$resourceIds = [];
+for ($i = 0; $i < count($resources); $i++) {
+    $resourceIds[] = $i;
+}
+//print_r($tasks[2]);
+//print_r($resources[1]);
+//print_r($resources[2]);
+////echo distance($resources[0]->getLongitude(), $resources[0]->getLatitude(), $pickups[1]->getLongitude(), $pickups[1]->getLatitude());
+//die();
+
+$resourcePermutations = permutation($resourceIds);
+$theLongestDistance = [INF];
+$theBestRoute;
+$operacji = 0;
+
+for ($i = 0; $i < count($resourcePermutations); $i++) {
+    for ($j = 0; $j < count($possible); $j++) {
+        $distances = [];
+        for ($k = 0; $k < count($possible[$j]); $k++) {
+            $distance = 0;
+            if (count($possible[$j][$k]) > 0) {
+                $resLon = $resources[$resourcePermutations[$i][$k]]->getLongitude();
+                $resLat = $resources[$resourcePermutations[$i][$k]]->getLatitude();
+                $posLon = $possible[$j][$k][0]->getLongitude();
+                $posLat = $possible[$j][$k][0]->getLatitude();
+                $distance += distance2($resLon, $resLat, $posLon, $posLat);
+                for ($m = 0; $m < count($possible[$j][$k]) - 1; $m++) {
+                    $operacji++;
+                    $posLon1 = $possible[$j][$k][$m]->getLongitude();
+                    $posLat1 = $possible[$j][$k][$m]->getLatitude();
+                    $posLon2 = $possible[$j][$k][$m + 1]->getLongitude();
+                    $posLat2 = $possible[$j][$k][$m + 1]->getLatitude();
+                    $distance += distance2($posLon1, $posLat1, $posLon2, $posLat2);
+                }
+            }
+            $distances[] = $distance;
+        }
+        rsort($distances);
+        if ($distances[0] < $theLongestDistance[0]) {
+            $theLongestDistance = $distances;
+            $tmp = $possible[$j];
+            $resource1 = $resources[$resourcePermutations[$i][0]];
+            if (isset($resourcePermutations[$i][1])) {
+                $resource2 = $resources[$resourcePermutations[$i][1]];
+                array_unshift($tmp[1], $resource2);
+            }
+            if (isset($resourcePermutations[$i][2])) {
+                $resource3 = $resources[$resourcePermutations[$i][2]];
+                array_unshift($tmp[2], $resource3);
+            }
+            array_unshift($tmp[0], $resource1);
+
+            $theBestRoute = $tmp;
+        }
+    }
+}
+print_r($theBestRoute);
+
 //echo json_encode($possible);
-echo "Wyników: ". $operations;
+//echo "Wyników: " . count($possible);
 
 

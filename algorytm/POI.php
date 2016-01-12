@@ -4,10 +4,16 @@ require_once 'Distance.php';
 
 class POI
 {
+
     protected $id;
     protected $latitude;
     protected $longitude;
     protected $distances = [];
+
+    public function __toString()
+    {
+        return $this->id;
+    }
 
     /*
      * Settery
@@ -27,7 +33,7 @@ class POI
     {
         $this->longitude = $longitude;
     }
-    
+
     public function addDistance(Distance $distance)
     {
         $this->distances[] = $distance;
@@ -51,7 +57,7 @@ class POI
     {
         return $this->longitude;
     }
-    
+
     /**
      * 
      * @return Distance[];
@@ -60,4 +66,5 @@ class POI
     {
         return $this->distances;
     }
+
 }
