@@ -133,10 +133,6 @@ for ($i = 1; $i <= $resourceCount; $i++) {
 }
 sort($possibleResourceCombination);
 
-
-echo json_encode($possibleResourceCombination);
-die();
-
 /*
  * Schemat działania algorytmu dla 1 zasobu i 2 zadań
  * [ [0], [2]]
@@ -250,8 +246,8 @@ for ($m = 0; $m <= floor($pickupCount / 2) || $m === 0; $m++) {
                         break;
                     }
 
-                    if (array_search($removed[$index], $pickups) !== count($pickups) - 1 && $index >= 0) {
-                        $rawPosition = array_search($removed[$index], $pickups);
+                    $rawPosition = array_search($removed[$index], $pickups);
+                    if ($rawPosition !== count($pickups) - 1 && $index >= 0) {
                         $position = $rawPosition + 1;
                         if (!isset($removed[$index + 1]) || $removed[$index + 1] != $pickups[$position]) {
                             $specialPickupList[] = $removed[$index];
@@ -347,11 +343,11 @@ if ($resourceCount > 2) {
                 $tmp = $possible[$i];
                 $removedTask = [];
                 for ($k = $j; $k >= 0; $k--) {
-                    $removedTask[] = $tmp[0][$k];
-                    $relatedPosition = array_search(getRelated($tmp[0], $tmp[0][$k]), $tmp[0]);
+                    $removedTask[] = $tmp[0][0];
+                    $relatedPosition = array_search(getRelated($tmp[0], $tmp[0][0]), $tmp[0]);
                     $removedTask[] = $tmp[0][$relatedPosition];
                     array_splice($tmp[0], $relatedPosition, 1);
-                    array_splice($tmp[0], $k, 1);
+                    array_splice($tmp[0], 0, 1);
                 }
                 $tmp[2] = $removedTask;
                 usort($tmp, "subcmp");
@@ -403,6 +399,7 @@ $resourcePermutations = permutation($resourceIds);
 $theLongestDistance = [INF];
 $theBestRoute;
 $operacji = 0;
+$choosen = 0;
 
 for ($i = 0; $i < count($resourcePermutations); $i++) {
     for ($j = 0; $j < count($possible); $j++) {
@@ -430,6 +427,7 @@ for ($i = 0; $i < count($resourcePermutations); $i++) {
         if ($distances[0] < $theLongestDistance[0]) {
             $theLongestDistance = $distances;
             $tmp = $possible[$j];
+            $choosen = $j;
             $resource1 = $resources[$resourcePermutations[$i][0]];
             if (isset($resourcePermutations[$i][1])) {
                 $resource2 = $resources[$resourcePermutations[$i][1]];
@@ -445,6 +443,11 @@ for ($i = 0; $i < count($resourcePermutations); $i++) {
         }
     }
 }
+
+$fp = fopen('result.json', 'w');
+fwrite($fp, json_encode($theBestRoute));
+fclose($fp);
+
 print_r($theBestRoute);
 
 //echo json_encode($possible);
