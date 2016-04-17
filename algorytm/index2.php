@@ -79,11 +79,16 @@ function distance($lon1, $lat1, $lon2, $lat2) {
  * bardziej adekwatny dla odległości przedstawionych na płaszczyźnie
  */
 function distance2($lon1, $lat1, $lon2, $lat2) {
-    $lon = [$lon1, $lon2];
-    sort($lon);
-    $lat = [$lat1, $lat2];
-    sort($lat);
-    return pow(($lon[1] - $lon[0]), 2) + pow(($lat[1] - $lat[0]), 2);
+//    $lon = [$lon1, $lon2];
+//    sort($lon);
+//    $lat = [$lat1, $lat2];
+//    sort($lat);
+//    return pow(($lon[1] - $lon[0]), 2) + pow(($lat[1] - $lat[0]), 2);
+    
+    $x = abs($lon1 - $lon2);
+    $y = abs($lat1 - $lat2);
+    
+    return sqrt(pow($x, 2) + pow($y, 2));
 }
 
 function comb($m, $a) {
@@ -218,65 +223,98 @@ foreach ($second as $used) {
 }
 
 //dd($all[0][0][0][0]);
-$theLongestDistance = INF;
+$theLongestDistance = [INF];
 $theBestRoute;
 
-foreach ($all as $comb) {
+
+foreach ($all as $key => $comb) {
     $shortestDistanceFirst = INF;
     $shortestPermutationFirst;
     $shortestDistanceSecond = INF;
     $shortestPermutationSecond;
     $shortestDistanceThird = INF;
     $shortestPermutationThird;
-    for ($i = 0; $i < count($comb[0]); $i++) {
-        $distance = 0;
-        for ($j = 1; $j < count($comb[0][$i]); $j++) {
-            $previous = $comb[0][$i][$j - 1];
-            $actual = $comb[0][$i][$j];
-            $distance += distance2($previous->getLongitude(), $previous->getLatitude(), $actual->getLongitude(), $actual->getLatitude());
+    if (count($comb[0]) > 0) {
+        for ($i = 0; $i < count($comb[0]); $i++) {
+            $distance = 0;
+            array_unshift($comb[0][$i], $resources[0]);
+            for ($j = 1; $j < count($comb[0][$i]); $j++) {
+                $previous = $comb[0][$i][$j - 1];
+                $actual = $comb[0][$i][$j];
+                $distance += distance2($previous->getLongitude(), $previous->getLatitude(), $actual->getLongitude(), $actual->getLatitude());
+            }
+            if ($distance < $shortestDistanceFirst) {
+                $shortestDistanceFirst = $distance;
+                $shortestPermutationFirst = $i;
+            }
         }
-        if ($distance < $shortestDistanceFirst) {
-            $shortestDistanceFirst = $distance;
-            $shortestPermutationFirst = $i;
+    } else {
+        $shortestDistanceFirst = 0;
+        $shortestPermutationFirst = null;
+    }
+    if (count($comb[1]) > 0) {
+        for ($i = 0; $i < count($comb[1]); $i++) {
+            $distance = 0;
+            array_unshift($comb[1][$i], $resources[1]);
+            for ($j = 1; $j < count($comb[1][$i]); $j++) {
+                $previous = $comb[1][$i][$j - 1];
+                $actual = $comb[1][$i][$j];
+                $distance += distance2($previous->getLongitude(), $previous->getLatitude(), $actual->getLongitude(), $actual->getLatitude());
+            }
+            if ($distance < $shortestDistanceSecond) {
+                $shortestDistanceSecond = $distance;
+                $shortestPermutationSecond = $i;
+            }
         }
+    } else {
+        $shortestDistanceSecond = 0;
+        $shortestPermutationSecond = null;
+    }
+    if (count($comb[2]) > 0) {
+        for ($i = 0; $i < count($comb[2]); $i++) {
+            $distance = 0;
+            array_unshift($comb[2][$i], $resources[2]);
+            for ($j = 1; $j < count($comb[2][$i]); $j++) {
+                $previous = $comb[2][$i][$j - 1];
+                $actual = $comb[2][$i][$j];
+                $distance += distance2($previous->getLongitude(), $previous->getLatitude(), $actual->getLongitude(), $actual->getLatitude());
+            }
+            if ($distance < $shortestDistanceThird) {
+                $shortestDistanceThird = $distance;
+                $shortestPermutationThird = $i;
+            }
+        }
+    } else {
+        $shortestDistanceThird = 0;
+        $shortestPermutationThird = null;
     }
 
-    for ($i = 0; $i < count($comb[1]); $i++) {
-        $distance = 0;
-        for ($j = 1; $j < count($comb[1][$i]); $j++) {
-            $previous = $comb[1][$i][$j - 1];
-            $actual = $comb[1][$i][$j];
-            $distance += distance2($previous->getLongitude(), $previous->getLatitude(), $actual->getLongitude(), $actual->getLatitude());
-        }
-        if ($distance < $shortestDistanceSecond) {
-            $shortestDistanceSecond = $distance;
-            $shortestPermutationSecond = $i;
-        }
-    }
-    for ($i = 0; $i < count($comb[2]); $i++) {
-        $distance = 0;
-        for ($j = 1; $j < count($comb[2][$i]); $j++) {
-            $previous = $comb[2][$i][$j - 1];
-            $actual = $comb[2][$i][$j];
-            $distance += distance2($previous->getLongitude(), $previous->getLatitude(), $actual->getLongitude(), $actual->getLatitude());
-        }
-        if ($distance < $shortestDistanceThird) {
-            $shortestDistanceThird = $distance;
-            $shortestPermutationThird = $i;
-        }
-    }
 //    /dd([$shortestDistanceFirst, $shortestDistanceSecond, $shortestDistanceThird]);
     $routeFirst = isset($comb[0][$shortestPermutationFirst]) ? $comb[0][$shortestPermutationFirst] : [];
-    $routeSecond = isset($comb[0][$shortestPermutationSecond]) ? $comb[0][$shortestPermutationSecond] : [];
-    $routeThird = isset($comb[0][$shortestPermutationThird]) ? $comb[0][$shortestPermutationThird] : [];
-    $distances = array_reverse([$shortestDistanceFirst, $shortestDistanceSecond, $shortestDistanceThird]);
+    $routeSecond = isset($comb[1][$shortestPermutationSecond]) ? $comb[1][$shortestPermutationSecond] : [];
+    $routeThird = isset($comb[2][$shortestPermutationThird]) ? $comb[2][$shortestPermutationThird] : [];
+    $distances = [$shortestDistanceFirst, $shortestDistanceSecond, $shortestDistanceThird];
+    rsort($distances);
     $route = [$routeFirst, $routeSecond, $routeThird];
-    if ($theLongestDistance > $distances[0]) {
-        $theLongestDistance = $distances[0];
+    if ($theLongestDistance[0] > $distances[0]) {
+        $theLongestDistance = $distances;
         $theBestRoute = $route;
+    } elseif ($theLongestDistance[0] == $distances[0]) {
+        $sum1 = $theLongestDistance[1] + $theLongestDistance[2];
+        $sum2 = $distances[1] + $distances[2];
+        if ($sum2 < $sum1) {
+            $theLongestDistance = $distances;
+            $theBestRoute = $route;
+        }
     }
 }
+
+
+$fp = fopen('result.json', 'w');
+fwrite($fp, json_encode($theBestRoute));
+fclose($fp);
+
 dd($theBestRoute);
-//die(json_encode($all[5]));
 
 
+    
