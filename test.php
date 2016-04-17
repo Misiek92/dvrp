@@ -40,7 +40,7 @@ function flattenArray(array $array) {
     return $ret_array;
 }
 
-$a = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+$a = [1, 2, 3, 4, 5, 6, 7];
 $count = count($a);
 
 $first = [];
@@ -49,6 +49,7 @@ $all = [];
 
 foreach (range(1, $count) as $n) {
     $combinations = comb($n, $a);
+    
     foreach ($combinations as $combination) {
         $permutations = permute($combination);
         $first[] = $permutations;
@@ -71,8 +72,8 @@ foreach ($first as $used) {
 foreach ($second as $used) {
 
     $flattenUsedValues = array_merge(flattenArray($used[0]), flattenArray($used[1]));
+    die(json_encode(flattenArray($used[1])));
     $free = array_merge(array_diff($a, $flattenUsedValues));
-//    die(json_encode($permutations ));
 
     if (count($free) > 0) {
         $combinations = comb(count($free), $free);
@@ -85,5 +86,5 @@ foreach ($second as $used) {
     }
 }
 
-//die(json_encode($all));
-echo 'ok';
+die(json_encode($all));
+//echo 'ok';
