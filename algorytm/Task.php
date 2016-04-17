@@ -59,8 +59,7 @@ class Task extends POI implements JsonSerializable
             "type" => $this->type,
             "latitude" => $this->latitude,
             "longitude" => $this->longitude,
-            "relatedTaskId" => $this->relatedTaskId,
-            "distances" => $this->distances
+            "relatedTaskId" => $this->relatedTaskId
         ];
     }
 

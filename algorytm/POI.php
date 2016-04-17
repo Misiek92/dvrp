@@ -1,14 +1,11 @@
 <?php
 
-require_once 'Distance.php';
-
 class POI
 {
 
     protected $id;
     protected $latitude;
     protected $longitude;
-    protected $distances = [];
 
     public function __toString()
     {
@@ -34,11 +31,6 @@ class POI
         $this->longitude = $longitude;
     }
 
-    public function addDistance(Distance $distance)
-    {
-        $this->distances[] = $distance;
-    }
-
     /*
      * Gettery
      */
@@ -58,13 +50,5 @@ class POI
         return $this->longitude;
     }
 
-    /**
-     * 
-     * @return Distance[];
-     */
-    public function getDistances()
-    {
-        return $this->distances;
-    }
 
 }

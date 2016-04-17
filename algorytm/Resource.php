@@ -11,8 +11,7 @@ class Resource extends POI implements JsonSerializable
         return [
             "id" => $this->id,
             "latitude" => $this->latitude,
-            "longitude" => $this->longitude,
-            "distances" => $this->distances
+            "longitude" => $this->longitude
         ];
     }
 
