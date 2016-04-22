@@ -5,10 +5,10 @@ require_once 'Resource.php';
 require_once 'Task.php';
 
 // liczba zasobów do wygenerowania
-$numberOfResources = (int) $_GET['resources'];
+$numberOfResources = isset($_GET['resources']) ? (int) $_GET['resources'] : 3;
 
 // liczba zadań do wygenerowania
-$numberOfTasks = (int) $_GET['tasks']*2;
+$numberOfTasks = isset($_GET['tasks']) ? (int) $_GET['tasks']*2 : 8;
 
 // tu będą przechowywane dane
 $data = [];

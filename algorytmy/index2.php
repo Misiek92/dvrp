@@ -4,20 +4,16 @@ require_once 'Resource.php';
 require_once 'Task.php';
 require_once 'Route.php';
 
-        const DATA_FILE = "../data.json";
+const DATA_FILE = "../data.json";
 
 $file = file_get_contents(DATA_FILE);
 $data = json_decode($file, true);
 $resources = [];
 $tasks = [];
-$startRoutes = [];
-$routes = [];
-$pickups = [];
-$drops = [];
+//$pickups = [];
+//$drops = [];
 $taskCount = count($data['tasks']);
 $resourceCount = count($data['resources']);
-$pickupCount;
-$dropCount;
 
 foreach ($data['resources'] as $r) {
     $resource = new Resource();
@@ -35,18 +31,15 @@ for ($i = 0; $i < $taskCount; $i++) {
     $task->setLongitude($t['longitude']);
     $task->setTask($t['task']);
     $task->setType($t['type']);
-    if ($t['type'] == "pickup") {
-        $pickups[] = $task;
-    } else {
-        $drops[] = $task;
-        $task->setRelatedTaskId($tasks[$i - 1]->getId());
-        $tasks[$i - 1]->setRelatedTaskId($task->getId());
-    }
+//    if ($t['type'] == "pickup") {
+//        $pickups[] = $task;
+//    } else {
+//        $drops[] = $task;
+//        $task->setRelatedTaskId($tasks[$i - 1]->getId());
+//        $tasks[$i - 1]->setRelatedTaskId($task->getId());
+//    }
     $tasks[] = $task;
 }
-
-$pickupCount = count($pickups);
-$dropCount = count($drops);
 
 function dd($element)
 {
@@ -58,35 +51,34 @@ function dd($element)
  * "as the crow flies"
  * można podstawić inne API, np. Google matrix
  */
-
-function distance($lon1, $lat1, $lon2, $lat2)
-{
-    return round(acos(
-                    cos($lat1 * (PI() / 180)) *
-                    cos($lon1 * (PI() / 180)) *
-                    cos($lat2 * (PI() / 180)) *
-                    cos($lon2 * (PI() / 180)) +
-                    cos($lat1 * (PI() / 180)) *
-                    sin($lon1 * (PI() / 180)) *
-                    cos($lat2 * (PI() / 180)) *
-                    sin($lon2 * (PI() / 180)) +
-                    sin($lat1 * (PI() / 180)) *
-                    sin($lat2 * (PI() / 180))
-            ) * 6371 * 1000);
-}
-
-/**
- * Obliczanie dystansu na podstawie wzoru pitagorsa,
- * bardziej adekwatny dla odległości przedstawionych na płaszczyźnie
- */
-function distance2($lon1, $lat1, $lon2, $lat2)
-{
-
-    $x = abs($lon1 - $lon2);
-    $y = abs($lat1 - $lat2);
-
-    return sqrt(pow($x, 2) + pow($y, 2));
-}
+//
+//function distance($lon1, $lat1, $lon2, $lat2)
+//{
+//    return round(acos(
+//            cos($lat1 * (PI() / 180)) *
+//            cos($lon1 * (PI() / 180)) *
+//            cos($lat2 * (PI() / 180)) *
+//            cos($lon2 * (PI() / 180)) +
+//            cos($lat1 * (PI() / 180)) *
+//            sin($lon1 * (PI() / 180)) *
+//            cos($lat2 * (PI() / 180)) *
+//            sin($lon2 * (PI() / 180)) +
+//            sin($lat1 * (PI() / 180)) *
+//            sin($lat2 * (PI() / 180))
+//        ) * 6371 * 1000);
+//}
+//
+///**
+// * Obliczanie dystansu na podstawie wzoru pitagorsa,
+// * bardziej adekwatny dla odległości przedstawionych na płaszczyźnie
+// */
+//function distance2($lon1, $lat1, $lon2, $lat2)
+//{
+//    $x = abs($lon1 - $lon2);
+//    $y = abs($lat1 - $lat2);
+//
+//    return sqrt(pow($x, 2) + pow($y, 2));
+//}
 
 function comb($m, $a)
 {
@@ -104,6 +96,7 @@ function comb($m, $a)
     foreach (comb($m, $t) as $c)
         yield $c;
 }
+
 //
 //function checkOrder($arrays)
 //{

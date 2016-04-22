@@ -88,7 +88,7 @@ var painterAfter = {
         radius: 8,
     },
     raw: {
-        url: "../algorytm/result.json",
+        url: "../algorytmy/result.json",
         proceed: function (data) {
             painterAfter.raw.paths = data;
             painterAfter.raw.draw();
