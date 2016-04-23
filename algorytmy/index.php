@@ -4,7 +4,9 @@ require_once 'Resource.php';
 require_once 'Task.php';
 require_once 'Route.php';
 require_once 'Naive.php';
-require_once 'One.php';
+require_once 'GreedyOne.php';
+require_once 'GreedyTwo.php';
+require_once 'GreedyThree.php';
 
 const DATA_FILE = "../data.json";
 
@@ -49,9 +51,9 @@ function dd($element)
     die(json_encode($element));
 }
 
-$naive = new One($date->format('Ymdhis'), $tasks, $resources);
+$naive = new GreedyThree($date->format('Ymdhis'), $tasks, $resources);
 $naive->execute();
 
-dd($naive->getTheBestRoute());
+$naive->getInfo();
 
 

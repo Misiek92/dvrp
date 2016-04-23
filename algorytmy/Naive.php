@@ -2,6 +2,7 @@
 
 require_once 'Resource.php';
 require_once 'Task.php';
+require_once 'Distance.php';
 
 class Naive
 {
@@ -37,8 +38,8 @@ class Naive
     /**
      * Naive constructor.
      * @param $id
-     * @param Task $tasks[]
-     * @param Resource $resources[]
+     * @param Task $tasks []
+     * @param Resource $resources []
      */
     public function __construct($id, $tasks, $resources)
     {
@@ -46,30 +47,6 @@ class Naive
         $this->resources = $resources;
         $this->tasks = $tasks;
         $this->time = new DateTime('now');
-    }
-
-    public function euclidesDistance($lon1, $lat1, $lon2, $lat2)
-    {
-        $x = abs($lon1 - $lon2);
-        $y = abs($lat1 - $lat2);
-
-        return sqrt(pow($x, 2) + pow($y, 2));
-    }
-
-    private function geographicDistance($lon1, $lat1, $lon2, $lat2)
-    {
-        return round(acos(
-                cos($lat1 * (PI() / 180)) *
-                cos($lon1 * (PI() / 180)) *
-                cos($lat2 * (PI() / 180)) *
-                cos($lon2 * (PI() / 180)) +
-                cos($lat1 * (PI() / 180)) *
-                sin($lon1 * (PI() / 180)) *
-                cos($lat2 * (PI() / 180)) *
-                sin($lon2 * (PI() / 180)) +
-                sin($lat1 * (PI() / 180)) *
-                sin($lat2 * (PI() / 180))
-            ) * 6371 * 1000);
     }
 
     private function comb($m, $a)
@@ -153,7 +130,8 @@ class Naive
             for ($j = 1; $j < count($array[$i]); $j++) {
                 $previous = $array[$i][$j - 1];
                 $actual = $array[$i][$j];
-                $distance += $this->euclidesDistance($previous->getLongitude(), $previous->getLatitude(), $actual->getLongitude(), $actual->getLatitude());
+                $distanceObject = new Distance($previous, $actual);
+                $distance += $distanceObject->euclides();
             }
             if ($distance < $shortestDistance) {
                 $shortestDistance = $distance;
@@ -243,7 +221,8 @@ class Naive
                     for ($j = 1; $j < count($comb[0][$i]); $j++) {
                         $previous = $comb[0][$i][$j - 1];
                         $actual = $comb[0][$i][$j];
-                        $distance += $this->euclidesDistance($previous->getLongitude(), $previous->getLatitude(), $actual->getLongitude(), $actual->getLatitude());
+                        $distanceObject = new Distance($previous, $actual);
+                        $distance += $distanceObject->euclides();
                     }
                     if ($distance < $shortestDistanceFirst) {
                         $shortestDistanceFirst = $distance;
@@ -260,7 +239,8 @@ class Naive
                     for ($j = 1; $j < count($comb[1][$i]); $j++) {
                         $previous = $comb[1][$i][$j - 1];
                         $actual = $comb[1][$i][$j];
-                        $distance += $this->euclidesDistance($previous->getLongitude(), $previous->getLatitude(), $actual->getLongitude(), $actual->getLatitude());
+                        $distanceObject = new Distance($previous, $actual);
+                        $distance += $distanceObject->euclides();
                     }
                     if ($distance < $shortestDistanceSecond) {
                         $shortestDistanceSecond = $distance;
@@ -277,7 +257,8 @@ class Naive
                     for ($j = 1; $j < count($comb[2][$i]); $j++) {
                         $previous = $comb[2][$i][$j - 1];
                         $actual = $comb[2][$i][$j];
-                        $distance += $this->euclidesDistance($previous->getLongitude(), $previous->getLatitude(), $actual->getLongitude(), $actual->getLatitude());
+                        $distanceObject = new Distance($previous, $actual);
+                        $distance += $distanceObject->euclides();
                     }
                     if ($distance < $shortestDistanceThird) {
                         $shortestDistanceThird = $distance;
