@@ -3,15 +3,18 @@
 /*
  * Heuristic algorithm
  * On each iteration compare actual distance + the shortest possible
- * With other paths, and choose the shortest
+ * With other paths, and choose the shortest or end task if is reachable
+ *
  */
 
 require_once 'Resource.php';
 require_once 'Task.php';
 require_once 'Distance.php';
 
-class GreedyThree
+class FinishFirst
 {
+    protected $multiplier;
+
     protected $id;
     /**
      * @var Resource
@@ -46,12 +49,14 @@ class GreedyThree
      * @param $id
      * @param Task $tasks []
      * @param Resource $resources []
+     * @param integer $multiplier
      */
-    public function __construct($id, $tasks, $resources)
+    public function __construct($id, $tasks, $resources, $multiplier = 2)
     {
         $this->id = $id;
         $this->resources = $resources;
         $this->tasks = $tasks;
+        $this->multiplier = $multiplier;
     }
 
     /**
@@ -102,9 +107,8 @@ class GreedyThree
     {
         $info = "\r\n";
         $info .= "############################################# \r\n";
-        $info .= "###           ALGORYTM ZACHLANNY 3        ### \r\n";
-        $info .= "### sprawdzanie potencjalnych odleglosci  ### \r\n";
-        $info .= "### po iteracji i wybieranie najkrotszych ### \r\n";
+        $info .= "###         ALGORYTM `FINISH FIRST`       ### \r\n";
+        $info .= "###       Priorytet konczenia zadan       ### \r\n";
         $info .= "############################################# \r\n";
         $info .= "# \r\n";
         $info .= "# Rozpoczecie obliczen: " . $this->time->format('H:i:s') . "\r\n";
@@ -133,8 +137,8 @@ class GreedyThree
 
     private function save()
     {
-        $fp = fopen('results/'.$this->id.'-three.json', 'w');
-        //$fp = fopen('results/three.json', 'w');
+        $fp = fopen('results/'.$this->id.'-finishFirst.json', 'w');
+        //$fp = fopen('results/finishFirst.json', 'w');
         fwrite($fp, json_encode($this->getTheBestRoute()));
         fclose($fp);
     }
@@ -162,19 +166,34 @@ class GreedyThree
 
         while (!empty($this->tasks)) {
             $distancesAfterIteration = [];
+            $finishDistancesAfterIteration = [];
             foreach ($this->resources as $i => $resource) {
                 $distanceAfter = INF;
                 $distanceRaw = null;
                 $closestTaskIndex = null;
+                $finishDistanceAfter = INF;
+                $finishDistanceRaw = null;
+                $finishClosestTaskIndex = null;
                 foreach ($this->tasks as $index => $task) {
                     if ($this->checkIfPossible($paths[$i], $task)) {
-                        $distanceObject = new Distance(end($paths[$i]), $task);
-                        $distance = $distanceObject->euclides();
-                        $distanceCheck = $distance + $resource->getDistance();
-                        if ($distanceCheck < $distanceAfter) {
-                            $distanceAfter = $distanceCheck;
-                            $closestTaskIndex = $index;
-                            $distanceRaw = $distance;
+                        if ($task->getType() == "pickup") {
+                            $distanceObject = new Distance(end($paths[$i]), $task);
+                            $distance = $distanceObject->euclides();
+                            $distanceCheck = $distance + $resource->getDistance();
+                            if ($distanceCheck < $distanceAfter) {
+                                $distanceAfter = $distanceCheck;
+                                $closestTaskIndex = $index;
+                                $distanceRaw = $distance;
+                            }
+                        } else {
+                            $distanceObject = new Distance(end($paths[$i]), $task);
+                            $distance = $distanceObject->euclides();
+                            $distanceCheck = $distance + $resource->getDistance();
+                            if ($distanceCheck < $finishDistanceAfter) {
+                                $finishDistanceAfter = $distanceCheck;
+                                $finishClosestTaskIndex = $index;
+                                $finishDistanceRaw = $distance;
+                            }
                         }
                     }
                 }
@@ -182,6 +201,12 @@ class GreedyThree
                     'distance' => $distanceAfter,
                     'rawDistance' => $distanceRaw,
                     'index' => $closestTaskIndex
+                ];
+
+                $finishDistancesAfterIteration[$i] = [
+                    'distance' => $finishDistanceAfter,
+                    'rawDistance' => $finishDistanceRaw,
+                    'index' => $finishClosestTaskIndex
                 ];
             }
 
@@ -191,6 +216,14 @@ class GreedyThree
             $distanceRaw = null;
             foreach ($distancesAfterIteration as $key => $object) {
                 if ($object['distance'] < $distance) {
+                    $choosenResourceIndex = $key;
+                    $choosenTaskIndex = $object['index'];
+                    $distance = $object['distance'];
+                    $distanceRaw = $object['rawDistance'];
+                }
+            }
+            foreach ($finishDistancesAfterIteration as $key => $object) {
+                if ($object['distance'] < ($distance * (int) $this->multiplier)) {
                     $choosenResourceIndex = $key;
                     $choosenTaskIndex = $object['index'];
                     $distance = $object['distance'];

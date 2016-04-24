@@ -18,21 +18,52 @@ class Naive
     protected $tasks;
 
     /**
-     * @var DateTime
-     */
-    protected $time;
-
-    /**
      * @var array
      */
     protected $theBestRoute;
 
     /**
+     * @var DateTime
+     */
+    protected $time;
+    
+    protected $microTime;
+
+    /**
+     * @var DateTime
+     */
+    protected $timeEnd;
+
+    protected $microTimeEnd;
+    /**
+     * @var array
+     */
+    /**
      * @return array
      */
     public function getTheBestRoute()
     {
-        return $this->theBestRoute;
+        return [
+            "result" => $this->theBestRoute,
+            "totalDistance" => round($this->totalDistance(), 2),
+            "time" => $this->dateDifference(),
+            "theLongest" => $this->theLongest()
+        ];
+    }
+
+    public function theLongest()
+    {
+        $theLongest = 0;
+        $id = null;
+        foreach ($this->theBestRoute as $i => $route) {
+            $distance = $route[0]->getDistance();
+            if ($distance > $theLongest) {
+                $theLongest = $distance;
+                $id = $i;
+            }
+        }
+
+        return round($theLongest, 2) . " (ID: " .$id.")";
     }
 
     /**
@@ -46,7 +77,53 @@ class Naive
         $this->id = $id;
         $this->resources = $resources;
         $this->tasks = $tasks;
-        $this->time = new DateTime('now');
+    }
+
+    private function dateDifference()
+    {
+        $miliseconds = $this->microTimeEnd - $this->microTime;
+
+        return round($miliseconds, 4) . " sekund";
+    }
+
+    private function totalDistance()
+    {
+        $distance = 0;
+        foreach ($this->theBestRoute as $route) {
+            $distance += $route[0]->getDistance();
+        }
+        return $distance;
+    }
+
+    public function getInfo()
+    {
+        $info = "\r\n";
+        $info .= "############################################# \r\n";
+        $info .= "###            ALGORYTM NAIWNY            ### \r\n";
+        $info .= "############################################# \r\n";
+        $info .= "# \r\n";
+        $info .= "# Rozpoczecie obliczen: " . $this->time->format('H:i:s') . "\r\n";
+        $info .= "# Ukonczenie:           " . $this->timeEnd->format('H:i:s') . "\r\n";
+        $info .= "# Czas wykonywania:     " . $this->dateDifference() . "\r\n";
+        $info .= "# Laczny dystans:       " . round($this->totalDistance(), 2) . "\r\n";
+        $info .= "# \r\n";
+        $info .= "#############  ZASOB 1  #############\r\n";
+        $info .= "# \r\n";
+        $info .= "# Przypietych zadan:    " . (count($this->theBestRoute[0]) - 1) / 2 . "\r\n";
+        $info .= "# Dystans :             " . round($this->theBestRoute[0][0]->getDistance(), 2) . "\r\n";
+        $info .= "# \r\n";
+        $info .= "#############  ZASOB 2  #############\r\n";
+        $info .= "# \r\n";
+        $info .= "# Przypietych zadan:    " . (count($this->theBestRoute[1]) - 1) / 2 . "\r\n";
+        $info .= "# Dystans :             " . round($this->theBestRoute[1][0]->getDistance(), 2) . "\r\n";
+        $info .= "# \r\n";
+        $info .= "#############  ZASOB 3  #############\r\n";
+        $info .= "# \r\n";
+        $info .= "# Przypietych zadan:    " . (count($this->theBestRoute[2]) - 1) / 2 . "\r\n";
+        $info .= "# Dystans :             " . round($this->theBestRoute[2][0]->getDistance(), 2) . "\r\n";
+        $info .= "# \r\n";
+        $info .= "#####################################\r\n";
+        print $info;
     }
 
     private function comb($m, $a)
@@ -144,7 +221,7 @@ class Naive
     private function firstResource()
     {
         $first = [];
-        foreach (range(0, count($this->tasks)) as $n) {
+        foreach (range(1, count($this->tasks)) as $n) {
             if ($n % 2 == 0) {
                 $combinations = $this->comb($n, $this->tasks);
                 foreach ($combinations as $combination) {
@@ -163,7 +240,7 @@ class Naive
         $second = [];
         foreach ($first as $used) {
             $free = array_merge(array_udiff($this->tasks, $used[0], "Naive::compare_objects"));
-            foreach (range(0, count($free)) as $n) {
+            foreach (range(1, count($free)) as $n) {
                 if ($n % 2 == 0) {
                     $combinations = $this->comb($n, $free);
 
@@ -207,7 +284,6 @@ class Naive
     {
         $theLongestDistance = [INF];
         $theBestRoute = null;
-        //die(json_encode($all));
         foreach ($all as $key => $comb) {
             $shortestDistanceFirst = INF;
             $shortestPermutationFirst = null;
@@ -228,6 +304,7 @@ class Naive
                         $shortestDistanceFirst = $distance;
                         $shortestPermutationFirst = $i;
                     }
+
                 }
             } else {
                 $shortestDistanceFirst = 0;
@@ -246,6 +323,7 @@ class Naive
                         $shortestDistanceSecond = $distance;
                         $shortestPermutationSecond = $i;
                     }
+
                 }
             } else {
                 $shortestDistanceSecond = 0;
@@ -279,12 +357,18 @@ class Naive
             if ($theLongestDistance[0] > $distances[0]) {
                 $theLongestDistance = $distances;
                 $theBestRoute = $route;
+                $this->resources[0]->setDistance($shortestDistanceFirst);
+                $this->resources[1]->setDistance($shortestDistanceSecond);
+                $this->resources[2]->setDistance($shortestDistanceThird);
             } elseif ($theLongestDistance[0] == $distances[0]) {
                 $sum1 = $theLongestDistance[1] + $theLongestDistance[2];
                 $sum2 = $distances[1] + $distances[2];
                 if ($sum2 < $sum1) {
                     $theLongestDistance = $distances;
                     $theBestRoute = $route;
+                    $this->resources[0]->setDistance($shortestDistanceFirst);
+                    $this->resources[1]->setDistance($shortestDistanceSecond);
+                    $this->resources[2]->setDistance($shortestDistanceThird);
                 }
             }
         }
@@ -294,13 +378,16 @@ class Naive
 
     private function save()
     {
-        $fp = fopen('result.json', 'w');
-        fwrite($fp, json_encode($this->theBestRoute));
+//        $fp = fopen('results/'.$this->id.'-naive.json', 'w');
+        $fp = fopen('results/naive.json', 'w');
+        fwrite($fp, json_encode($this->getTheBestRoute()));
         fclose($fp);
     }
 
     public function execute()
     {
+        $this->time = new DateTime('now');
+        $this->microTime = microtime(true);
         $first = $this->firstResource();
         $second = $this->secondResource($first);
         unset($first);
@@ -308,7 +395,8 @@ class Naive
         unset($second);
         $this->calculate($all);
         unset($all);
+        $this->microTimeEnd = microtime(true);
+        $this->timeEnd = new DateTime('now');
         $this->save();
-
     }
 }

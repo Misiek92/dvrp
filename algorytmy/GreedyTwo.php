@@ -28,12 +28,14 @@ class GreedyTwo
      */
     protected $time;
 
+    protected $microTime;
+
     /**
      * @var DateTime
      */
     protected $timeEnd;
 
-    protected $microtTimeEnd;
+    protected $microTimeEnd;
     /**
      * @var array
      */
@@ -57,18 +59,32 @@ class GreedyTwo
      */
     public function getTheBestRoute()
     {
-        return $this->theBestRoute;
+        return [
+            "result" => $this->theBestRoute,
+            "totalDistance" => round($this->totalDistance(), 2),
+            "time" => $this->dateDifference(),
+            "theLongest" => $this->theLongest()
+        ];
     }
 
-    public function microtime_float()
+    public function theLongest()
     {
-        //list($usec, $sec) = explode(" ", microtime());
-        //return ((float)$usec + (float)$sec);
+        $theLongest = 0;
+        $id = null;
+        foreach ($this->theBestRoute as $i => $route) {
+            $distance = $route[0]->getDistance();
+            if ($distance > $theLongest) {
+                $theLongest = $distance;
+                $id = $i;
+            }
+        }
+
+        return round($theLongest, 2) . " (ID: " .$id.")";
     }
 
     private function dateDifference()
     {
-        $miliseconds = $this->microtTimeEnd - $_SERVER["REQUEST_TIME_FLOAT"];
+        $miliseconds = $this->microTimeEnd - $this->microTime;
 
         return round($miliseconds, 4) . " sekund";
     }
@@ -85,10 +101,10 @@ class GreedyTwo
     public function getInfo()
     {
         $info = "\r\n";
-        $info .= "##################################### \r\n";
-        $info .= "### PODSTAWOWY ALGORYTM ZACHLANNY ### \r\n";
-        $info .= "### 1 odcinek na iteracje         ### \r\n";
-        $info .= "##################################### \r\n";
+        $info .= "####################################### \r\n";
+        $info .= "### PODSTAWOWY ALGORYTM ZACHLANNY 2 ### \r\n";
+        $info .= "### 1 odcinek na iteracje           ### \r\n";
+        $info .= "####################################### \r\n";
         $info .= "# \r\n";
         $info .= "# Rozpoczecie obliczen: " . $this->time->format('H:i:s') . "\r\n";
         $info .= "# Ukonczenie:           " . $this->timeEnd->format('H:i:s') . "\r\n";
@@ -116,8 +132,9 @@ class GreedyTwo
 
     private function save()
     {
-        $fp = fopen('result.json', 'w');
-        fwrite($fp, json_encode($this->theBestRoute));
+        $fp = fopen('results/'.$this->id.'-two.json', 'w');
+       // $fp = fopen('results/two.json', 'w');
+        fwrite($fp, json_encode($this->getTheBestRoute()));
         fclose($fp);
     }
 
@@ -175,9 +192,10 @@ class GreedyTwo
     public function execute()
     {
         $this->time = new DateTime('now');
+        $this->microTime = microtime(true);
         $this->find();
-        $this->save();
-        $this->microtTimeEnd = microtime(true);
+        $this->microTimeEnd = microtime(true);
         $this->timeEnd = new DateTime('now');
+        $this->save();
     }
 }

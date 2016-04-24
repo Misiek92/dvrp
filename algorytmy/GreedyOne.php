@@ -28,12 +28,13 @@ class GreedyOne
      */
     protected $time;
 
+    protected $microTime;
     /**
      * @var DateTime
      */
     protected $timeEnd;
 
-    protected $microtTimeEnd;
+    protected $microTimeEnd;
     /**
      * @var array
      */
@@ -57,20 +58,33 @@ class GreedyOne
      */
     public function getTheBestRoute()
     {
-        return $this->theBestRoute;
+        return [
+            "result" => $this->theBestRoute,
+            "totalDistance" => round($this->totalDistance(), 2),
+            "time" => $this->dateDifference(),
+            "theLongest" => $this->theLongest()
+        ];
     }
 
-    public function microtime_float()
+    public function theLongest()
     {
-        //list($usec, $sec) = explode(" ", microtime());
-        //return ((float)$usec + (float)$sec);
+        $theLongest = 0;
+        $id = null;
+        foreach ($this->theBestRoute as $i => $route) {
+            $distance = $route[0]->getDistance();
+            if ($distance > $theLongest) {
+                $theLongest = $distance;
+                $id = $i;
+            }
+        }
+
+        return round($theLongest, 2) . " (ID: " .$id.")";
     }
-    
+
     private function dateDifference()
     {
-        $miliseconds = $this->microtTimeEnd - $_SERVER["REQUEST_TIME_FLOAT"];
-
-        return round($miliseconds, 4) . " sekund";
+        $miliseconds = $this->microTimeEnd - $this->microTime;
+        return round($miliseconds, 2) . " sekund";
     }
 
     private function totalDistance()
@@ -86,7 +100,7 @@ class GreedyOne
     {
         $info = "\r\n";
         $info .= "############################################# \r\n";
-        $info .= "###     PODSTAWOWY ALGORYTM ZACHLANNY     ### \r\n";
+        $info .= "###     PODSTAWOWY ALGORYTM ZACHLANNY 1   ### \r\n";
         $info .= "### Odcinek dla kazdego zasobu w iteracji ### \r\n";
         $info .= "############################################# \r\n";
         $info .= "# \r\n";
@@ -116,8 +130,9 @@ class GreedyOne
 
     private function save()
     {
-        $fp = fopen('result.json', 'w');
-        fwrite($fp, json_encode($this->theBestRoute));
+        $fp = fopen('results/' . $this->id . '-one.json', 'w');
+        // $fp = fopen('results/one.json', 'w');
+        fwrite($fp, json_encode($this->getTheBestRoute()));
         fclose($fp);
     }
 
@@ -149,10 +164,9 @@ class GreedyOne
                 $closestTask = null;
                 foreach ($this->tasks as $index => $task) {
                     if ($this->checkIfPossible($paths[$i], $task)) {
-                        $distanceObject = new Distance($resource, $task);
+                        $distanceObject = new Distance(end($paths[$i]), $task);
                         $actualDistance = $distanceObject->euclides();
                         if ($actualDistance < $distance) {
-                            $resource->addDistance($actualDistance);
                             $distance = $actualDistance;
                             $closestTaskIndex = $index;
                             $closestTask = $task;
@@ -160,6 +174,7 @@ class GreedyOne
                     }
                 }
                 if ($closestTask) {
+                    $resource->addDistance($distance);
                     $paths[$i][] = $closestTask;
                     array_splice($this->tasks, $closestTaskIndex, 1);
                 }
@@ -172,9 +187,10 @@ class GreedyOne
     public function execute()
     {
         $this->time = new DateTime('now');
+        $this->microTime = microtime(true);
         $this->find();
-        $this->save();
-        $this->microtTimeEnd = microtime(true);
+        $this->microTimeEnd = microtime(true);
         $this->timeEnd = new DateTime('now');
+        $this->save();
     }
 }
