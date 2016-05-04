@@ -3,7 +3,6 @@
 require_once '../generator/index.php';
 require_once 'Resource.php';
 require_once 'Task.php';
-require_once 'Route.php';
 require_once 'Naive.php';
 require_once 'GreedyOne.php';
 require_once 'GreedyTwo.php';

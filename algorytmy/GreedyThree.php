@@ -110,6 +110,7 @@ class GreedyThree
         $info .= "# Rozpoczecie obliczen: " . $this->time->format('H:i:s') . "\r\n";
         $info .= "# Ukonczenie:           " . $this->timeEnd->format('H:i:s') . "\r\n";
         $info .= "# Czas wykonywania:     " . $this->dateDifference() . "\r\n";
+        $info .= "# Najdlugszy dystans:   " . $this->theLongest() . "\r\n";
         $info .= "# Laczny dystans:       " . round($this->totalDistance(), 2) . "\r\n";
         $info .= "# \r\n";
         $info .= "#############  ZASOB 1  #############\r\n";

@@ -18,6 +18,16 @@ class Naive
     protected $tasks;
 
     /**
+     * @var Task
+     */
+    protected $pickups = [];
+
+    /**
+     * @var Task
+     */
+    protected $drops = [];
+
+    /**
      * @var array
      */
     protected $theBestRoute;
@@ -26,7 +36,7 @@ class Naive
      * @var DateTime
      */
     protected $time;
-    
+
     protected $microTime;
 
     /**
@@ -63,7 +73,7 @@ class Naive
             }
         }
 
-        return round($theLongest, 2) . " (ID: " .$id.")";
+        return round($theLongest, 2) . " (ID: " . $id . ")";
     }
 
     /**
@@ -77,6 +87,13 @@ class Naive
         $this->id = $id;
         $this->resources = $resources;
         $this->tasks = $tasks;
+        foreach ($tasks as $task) {
+            if ($task->getType() == Task::TYPE_PICKUP) {
+                $this->pickups[] = $task;
+            } else {
+                $this->drops[] = $task;
+            }
+        }
     }
 
     private function dateDifference()
@@ -105,6 +122,7 @@ class Naive
         $info .= "# Rozpoczecie obliczen: " . $this->time->format('H:i:s') . "\r\n";
         $info .= "# Ukonczenie:           " . $this->timeEnd->format('H:i:s') . "\r\n";
         $info .= "# Czas wykonywania:     " . $this->dateDifference() . "\r\n";
+        $info .= "# Najdlugszy dystans:   " . $this->theLongest() . "\r\n";
         $info .= "# Laczny dystans:       " . round($this->totalDistance(), 2) . "\r\n";
         $info .= "# \r\n";
         $info .= "#############  ZASOB 1  #############\r\n";
@@ -218,17 +236,45 @@ class Naive
         return [$array[$shortestPermutation]];
     }
 
+    private function findAndPushDrops($combinations)
+    {
+        $arrayCombinations = [];
+        foreach ($combinations as $pickups) {
+            $array = $pickups;
+            foreach ($pickups as $pickup) {
+                foreach ($this->tasks as $task) {
+                    if ($task->getTask() == $pickup->getTask() && $task->getType() != $pickup->getType()) {
+                        $array[] = $task;
+                        break;
+                    }
+                }
+            }
+            $arrayCombinations[] = $array;
+        }
+        return $arrayCombinations;
+    }
+
+    private function findAndRemoveDrops($tasks)
+    {
+        $array = [$tasks[0]];
+        for ($i = 1; $i < count($tasks); $i++) {
+            if ($tasks[$i]->getType() == Task::TYPE_PICKUP) {
+                $array[] = $tasks[$i];
+            }
+        }
+        return $array;
+    }
+
     private function firstResource()
     {
         $first = [];
-        foreach (range(1, count($this->tasks)) as $n) {
-            if ($n % 2 == 0) {
-                $combinations = $this->comb($n, $this->tasks);
-                foreach ($combinations as $combination) {
-                    $permutations = $this->permute($combination);
-                    if (count($permutations) > 0) {
-                        $first[] = $this->leaveTheBest($permutations, $this->resources[0]);
-                    }
+        foreach (range(1, count($this->pickups)) as $n) {
+            $combinations = $this->comb($n, $this->pickups);
+            $combinations = $this->findAndPushDrops($combinations);
+            foreach ($combinations as $combination) {
+                $permutations = $this->permute($combination);
+                if (count($permutations) > 0) {
+                    $first[] = $this->leaveTheBest($permutations, $this->resources[0]);
                 }
             }
         }
@@ -239,18 +285,18 @@ class Naive
     {
         $second = [];
         foreach ($first as $used) {
-            $free = array_merge(array_udiff($this->tasks, $used[0], "Naive::compare_objects"));
+            $usedWithoutDrops = $this->findAndRemoveDrops($used[0]);
+            $free = array_merge(array_udiff($this->pickups, $usedWithoutDrops, "Naive::compare_objects"));
             foreach (range(1, count($free)) as $n) {
-                if ($n % 2 == 0) {
-                    $combinations = $this->comb($n, $free);
-
-                    foreach ($combinations as $combination) {
-                        $permutations = $this->permute($combination);
-                        if (count($permutations) > 0) {
-                            $second[] = [$used, $this->leaveTheBest($permutations, $this->resources[1])];
-                        }
+                $combinations = $this->comb($n, $free);
+                $combinations = $this->findAndPushDrops($combinations);
+                foreach ($combinations as $combination) {
+                    $permutations = $this->permute($combination);
+                    if (count($permutations) > 0) {
+                        $second[] = [$used, $this->leaveTheBest($permutations, $this->resources[1])];
                     }
                 }
+
             }
         }
         return $second;
@@ -260,12 +306,15 @@ class Naive
     {
         $all = [];
         foreach ($second as $used) {
-            $free = array_merge(array_udiff($this->tasks, $used[0][0], "Naive::compare_objects"));
-            $free = array_merge(array_udiff($free, $used[1][0], "Naive::compare_objects"));
+            $usedWithoutDropsOne = $this->findAndRemoveDrops($used[0][0]);
+            $usedWithoutDropsTwo = $this->findAndRemoveDrops($used[1][0]);
+            $free = array_merge(array_udiff($this->pickups, $usedWithoutDropsOne, "Naive::compare_objects"));
+            $free = array_merge(array_udiff($free, $usedWithoutDropsTwo, "Naive::compare_objects"));
 
             if (count($free) > 0) {
 
                 $combinations = $this->comb(count($free), $free);
+                $combinations = $this->findAndPushDrops($combinations);
                 foreach ($combinations as $combination) {
                     $permutations = $this->permute($combination);
 
@@ -378,8 +427,7 @@ class Naive
 
     private function save()
     {
-//        $fp = fopen('results/'.$this->id.'-naive.json', 'w');
-        $fp = fopen('results/naive.json', 'w');
+        $fp = fopen('results/' . $this->id . '-naive.json', 'w');
         fwrite($fp, json_encode($this->getTheBestRoute()));
         fclose($fp);
     }

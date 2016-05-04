@@ -2,19 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="75bdcd9a-f854-4bc8-8e86-53745aa07277" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/algorytmy/index2.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/algorytmy/pomysl #1.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/algorytmy/result.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/algorytmy/Route.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/algorytmy/index_old.php" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/algorytmy/FinishFirst.php" afterPath="$PROJECT_DIR$/algorytmy/FinishFirst.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/algorytmy/GreedyOne.php" afterPath="$PROJECT_DIR$/algorytmy/GreedyOne.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/algorytmy/GreedyThree.php" afterPath="$PROJECT_DIR$/algorytmy/GreedyThree.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/algorytmy/GreedyTwo.php" afterPath="$PROJECT_DIR$/algorytmy/GreedyTwo.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/algorytmy/Naive.php" afterPath="$PROJECT_DIR$/algorytmy/Naive.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/algorytmy/Task.php" afterPath="$PROJECT_DIR$/algorytmy/Task.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/algorytmy/index.php" afterPath="$PROJECT_DIR$/algorytmy/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/index.php" afterPath="$PROJECT_DIR$/generator/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/podglad/index.html" afterPath="$PROJECT_DIR$/podglad/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/podglad/script.js" afterPath="$PROJECT_DIR$/podglad/script.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test.php" afterPath="$PROJECT_DIR$/test.php" />
     </list>
     <ignored path="dvrp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,50 +34,70 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/generator/index.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="34" selection-start-line="22" selection-start-column="34" selection-end-line="22" selection-end-column="34" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/algorytmy/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="131" column="43" selection-start-line="131" selection-start-column="43" selection-end-line="131" selection-end-column="43" />
+            <state relative-caret-position="263">
+              <caret line="123" column="30" selection-start-line="123" selection-start-column="30" selection-end-line="123" selection-end-column="30" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Naive.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="POI.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/algorytmy/POI.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="714">
+              <caret line="42" column="20" selection-start-line="42" selection-start-column="20" selection-end-line="42" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Distance.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/algorytmy/Distance.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="799">
+              <caret line="47" column="5" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Naive.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/algorytmy/Naive.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="234" column="22" selection-start-line="234" selection-start-column="22" selection-end-line="234" selection-end-column="22" />
+            <state relative-caret-position="221">
+              <caret line="196" column="16" selection-start-line="196" selection-start-column="16" selection-end-line="196" selection-end-column="16" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/test.php">
+      <file leaf-file-name="FinishFirst.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/algorytmy/FinishFirst.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="63" column="28" selection-start-line="63" selection-start-column="28" selection-end-line="63" selection-end-column="28" />
+            <state relative-caret-position="2295">
+              <caret line="140" column="8" selection-start-line="140" selection-start-column="8" selection-end-line="140" selection-end-column="67" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="script.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/podglad/script.js">
+      <file leaf-file-name="Resource.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/algorytmy/Resource.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2490">
-              <caret line="436" column="24" selection-start-line="436" selection-start-column="24" selection-end-line="436" selection-end-column="24" />
+            <state relative-caret-position="442">
+              <caret line="26" column="5" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Task.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/algorytmy/Task.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -89,11 +106,9 @@
       <file leaf-file-name="GreedyOne.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/algorytmy/GreedyOne.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="553">
-              <caret line="68" column="0" selection-start-line="68" selection-start-column="0" selection-end-line="81" selection-end-column="5" />
-              <folding>
-                <element signature="e#7#129#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="1785">
+              <caret line="109" column="39" selection-start-line="109" selection-start-column="39" selection-end-line="109" selection-end-column="39" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -101,23 +116,9 @@
       <file leaf-file-name="GreedyTwo.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/algorytmy/GreedyTwo.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="531">
-              <caret line="82" column="5" selection-start-line="82" selection-start-column="5" selection-end-line="82" selection-end-column="5" />
-              <folding>
-                <element signature="e#7#127#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FinishFirst.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/algorytmy/FinishFirst.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="181" column="82" selection-start-line="181" selection-start-column="82" selection-end-line="181" selection-end-column="82" />
-              <folding>
-                <element signature="e#7#181#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="1819">
+              <caret line="111" column="75" selection-start-line="111" selection-start-column="75" selection-end-line="111" selection-end-column="75" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -125,11 +126,9 @@
       <file leaf-file-name="GreedyThree.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/algorytmy/GreedyThree.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="536">
-              <caret line="82" column="5" selection-start-line="82" selection-start-column="5" selection-end-line="82" selection-end-column="5" />
-              <folding>
-                <element signature="e#7#150#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="1836">
+              <caret line="112" column="75" selection-start-line="112" selection-start-column="75" selection-end-line="112" selection-end-column="75" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -159,15 +158,16 @@
         <option value="$PROJECT_DIR$/algorytmy/results/.gitignore" />
         <option value="$PROJECT_DIR$/algorytmy/results/20160424023712-finishFirst.json" />
         <option value="$PROJECT_DIR$/podglad/script.js" />
-        <option value="$PROJECT_DIR$/algorytmy/GreedyOne.php" />
-        <option value="$PROJECT_DIR$/algorytmy/GreedyTwo.php" />
-        <option value="$PROJECT_DIR$/algorytmy/FinishFirst.php" />
-        <option value="$PROJECT_DIR$/algorytmy/GreedyThree.php" />
         <option value="$PROJECT_DIR$/algorytmy/results/20160424153100.48103-two.json" />
         <option value="$PROJECT_DIR$/algorytmy/results/20160424153100.48103-one.json" />
+        <option value="$PROJECT_DIR$/test.php" />
+        <option value="$PROJECT_DIR$/algorytmy/GreedyOne.php" />
+        <option value="$PROJECT_DIR$/algorytmy/GreedyTwo.php" />
+        <option value="$PROJECT_DIR$/algorytmy/GreedyThree.php" />
+        <option value="$PROJECT_DIR$/algorytmy/FinishFirst.php" />
+        <option value="$PROJECT_DIR$/algorytmy/Task.php" />
         <option value="$PROJECT_DIR$/algorytmy/Naive.php" />
         <option value="$PROJECT_DIR$/algorytmy/index.php" />
-        <option value="$PROJECT_DIR$/test.php" />
       </list>
     </option>
   </component>
@@ -181,7 +181,7 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" interpreter_name="PHP 5.6" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="54" />
+    <option name="x" value="1912" />
     <option name="y" value="-8" />
     <option name="width" value="1874" />
     <option name="height" value="1096" />
@@ -211,8 +211,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -293,13 +291,15 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
-    <property name="settings.editor.selected.configurable" value="preferences.editor" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="SearchEverywhereHistoryKey" value="line n&#9;ACTION&#9;EditorToggleShowLineNumbers&#10;line nu&#9;ACTION&#9;EditorToggleShowLineNumbers&#10;line&#9;ACTION&#9;EditorToggleShowLineNumbers" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -375,23 +375,29 @@
       <workItem from="1461407899477" duration="17276000" />
       <workItem from="1461429936962" duration="5379000" />
       <workItem from="1461493660407" duration="15974000" />
+      <workItem from="1462010212000" duration="2637000" />
+      <workItem from="1462111953206" duration="53000" />
+      <workItem from="1462112206692" duration="3328000" />
+      <workItem from="1462181303062" duration="5000" />
+      <workItem from="1462187394098" duration="7076000" />
+      <workItem from="1462278407525" duration="4851000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47441000" />
+    <option name="totallyTimeSpent" value="65391000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="54" y="-8" width="1874" height="1096" extended-state="6" />
+    <frame x="1912" y="-8" width="1874" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="eSnippet Pro" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17640573" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18687983" sideWeight="0.49221185" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18687983" sideWeight="0.5077882" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32879817" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -401,7 +407,7 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32842582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32746115" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3426791" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
@@ -422,40 +428,15 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="11" />
+      <option name="time" value="12" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/generator/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" column="8" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/algorytmy/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/algorytmy/Naive.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1071">
-          <caret line="63" column="57" selection-start-line="63" selection-start-column="57" selection-end-line="63" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/podglad/script.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7905">
           <caret line="478" column="22" selection-start-line="478" selection-start-column="22" selection-end-line="478" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -463,10 +444,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
           <caret line="26" column="33" selection-start-line="26" selection-start-column="33" selection-end-line="26" selection-end-column="33" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#select#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -474,9 +451,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1037">
           <caret line="65" column="57" selection-start-line="65" selection-start-column="57" selection-end-line="65" selection-end-column="57" />
-          <folding>
-            <element signature="e#7#129#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -484,9 +458,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2941">
           <caret line="177" column="20" selection-start-line="177" selection-start-column="20" selection-end-line="177" selection-end-column="20" />
-          <folding>
-            <element signature="e#7#127#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -494,9 +465,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="901">
           <caret line="58" column="23" selection-start-line="58" selection-start-column="23" selection-end-line="58" selection-end-column="23" />
-          <folding>
-            <element signature="e#7#181#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -504,9 +472,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2635">
           <caret line="159" column="17" selection-start-line="159" selection-start-column="17" selection-end-line="159" selection-end-column="17" />
-          <folding>
-            <element signature="e#7#150#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -514,7 +479,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="68" selection-start-line="10" selection-start-column="68" selection-end-line="10" selection-end-column="68" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -538,7 +502,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1309">
           <caret line="90" column="40" selection-start-line="90" selection-start-column="40" selection-end-line="90" selection-end-column="40" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -546,9 +509,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#7#129#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -556,9 +516,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2941">
           <caret line="177" column="20" selection-start-line="177" selection-start-column="20" selection-end-line="177" selection-end-column="20" />
-          <folding>
-            <element signature="e#7#127#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -566,9 +523,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1054">
           <caret line="66" column="57" selection-start-line="66" selection-start-column="57" selection-end-line="66" selection-end-column="57" />
-          <folding>
-            <element signature="e#7#150#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -576,9 +530,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1853">
           <caret line="113" column="40" selection-start-line="113" selection-start-column="40" selection-end-line="113" selection-end-column="40" />
-          <folding>
-            <element signature="e#7#181#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -586,7 +537,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="68" selection-start-line="10" selection-start-column="68" selection-end-line="10" selection-end-column="68" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -610,9 +560,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#7#129#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -620,7 +567,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1581">
           <caret line="106" column="9" selection-start-line="106" selection-start-column="9" selection-end-line="106" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -628,7 +574,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="68" selection-start-line="10" selection-start-column="68" selection-end-line="10" selection-end-column="68" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -656,17 +601,107 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/algorytmy/index2.php" />
+    <entry file="file://$PROJECT_DIR$/algorytmy/result.json" />
+    <entry file="file://$PROJECT_DIR$/algorytmy/results/naive.json" />
+    <entry file="file://$PROJECT_DIR$/algorytmy/results/20160424010738-data.json" />
+    <entry file="file://$PROJECT_DIR$/podglad/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="48" selection-start-line="12" selection-start-column="48" selection-end-line="12" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algorytmy/results/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="1" selection-start-line="0" selection-start-column="1" selection-end-line="0" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algorytmy/results/20160424023332-two.json" />
+    <entry file="file://$PROJECT_DIR$/algorytmy/results/20160424023712-finishFirst.json" />
+    <entry file="file://$PROJECT_DIR$/podglad/script.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7412">
+          <caret line="436" column="24" selection-start-line="436" selection-start-column="24" selection-end-line="436" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algorytmy/results/20160424153100.48103-two.json" />
+    <entry file="file://$PROJECT_DIR$/algorytmy/results/20160424153100.48103-one.json" />
+    <entry file="file://$PROJECT_DIR$/generator/JSONGenerator.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="33" selection-start-line="2" selection-start-column="33" selection-end-line="2" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator/Task.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1173">
+          <caret line="69" column="10" selection-start-line="69" selection-start-column="10" selection-end-line="69" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algorytmy/index_old.php" />
+    <entry file="file://$PROJECT_DIR$/algorytmy/results/prefixes.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algorytmy/Route.php" />
     <entry file="file://$PROJECT_DIR$/algorytmy/POI.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
+        <state relative-caret-position="714">
           <caret line="42" column="20" selection-start-line="42" selection-start-column="20" selection-end-line="42" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algorytmy/GreedyThree.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1836">
+          <caret line="112" column="75" selection-start-line="112" selection-start-column="75" selection-end-line="112" selection-end-column="75" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/algorytmy/Distance.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+        <state relative-caret-position="799">
+          <caret line="47" column="5" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algorytmy/GreedyOne.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1785">
+          <caret line="109" column="39" selection-start-line="109" selection-start-column="39" selection-end-line="109" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algorytmy/GreedyTwo.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1819">
+          <caret line="111" column="75" selection-start-line="111" selection-start-column="75" selection-end-line="111" selection-end-column="75" />
           <folding />
         </state>
       </provider>
@@ -675,160 +710,38 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
           <caret line="26" column="5" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/algorytmy/result.json" />
-    <entry file="file://$PROJECT_DIR$/algorytmy/results/naive.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/algorytmy/results/20160424010738-data.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/podglad/index.html">
+    <entry file="file://$PROJECT_DIR$/algorytmy/Task.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="48" selection-start-line="12" selection-start-column="48" selection-end-line="12" selection-end-column="48" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#select#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/algorytmy/results/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="1" selection-start-line="0" selection-start-column="1" selection-end-line="0" selection-end-column="1" />
+        <state relative-caret-position="425">
+          <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="34" selection-start-line="22" selection-start-column="34" selection-end-line="22" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/algorytmy/results/20160424023332-two.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/algorytmy/results/20160424023712-finishFirst.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10123">
-          <caret line="2" column="5" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/podglad/script.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2490">
-          <caret line="436" column="24" selection-start-line="436" selection-start-column="24" selection-end-line="436" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/algorytmy/results/prefixes.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/algorytmy/GreedyOne.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="553">
-          <caret line="68" column="0" selection-start-line="68" selection-start-column="0" selection-end-line="81" selection-end-column="5" />
-          <folding>
-            <element signature="e#7#129#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/algorytmy/GreedyTwo.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="531">
-          <caret line="82" column="5" selection-start-line="82" selection-start-column="5" selection-end-line="82" selection-end-column="5" />
-          <folding>
-            <element signature="e#7#127#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/algorytmy/GreedyThree.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="536">
-          <caret line="82" column="5" selection-start-line="82" selection-start-column="5" selection-end-line="82" selection-end-column="5" />
-          <folding>
-            <element signature="e#7#150#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/algorytmy/FinishFirst.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="181" column="82" selection-start-line="181" selection-start-column="82" selection-end-line="181" selection-end-column="82" />
-          <folding>
-            <element signature="e#7#181#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/algorytmy/results/20160424153100.48103-two.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="735" column="21" selection-start-line="735" selection-start-column="21" selection-end-line="735" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/algorytmy/results/20160424153100.48103-one.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="1028" column="16" selection-start-line="1028" selection-start-column="8" selection-end-line="1028" selection-end-column="16" />
+        <state relative-caret-position="2295">
+          <caret line="140" column="8" selection-start-line="140" selection-start-column="8" selection-end-line="140" selection-end-column="67" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/algorytmy/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="131" column="43" selection-start-line="131" selection-start-column="43" selection-end-line="131" selection-end-column="43" />
+        <state relative-caret-position="263">
+          <caret line="123" column="30" selection-start-line="123" selection-start-column="30" selection-end-line="123" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/algorytmy/Naive.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="234" column="22" selection-start-line="234" selection-start-column="22" selection-end-line="234" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="63" column="28" selection-start-line="63" selection-start-column="28" selection-end-line="63" selection-end-column="28" />
+        <state relative-caret-position="221">
+          <caret line="196" column="16" selection-start-line="196" selection-start-column="16" selection-end-line="196" selection-end-column="16" />
           <folding />
         </state>
       </provider>

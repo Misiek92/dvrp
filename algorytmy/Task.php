@@ -10,7 +10,6 @@ class Task extends POI implements JsonSerializable
 
     protected $task;
     protected $type;
-    protected $relatedTaskId;
 
     /*
      * Settery
@@ -24,11 +23,6 @@ class Task extends POI implements JsonSerializable
     public function setType($type)
     {
         $this->type = $type;
-    }
-    
-    function setRelatedTaskId($related)
-    {
-        $this->relatedTaskId = (int) $related;
     }
 
     /*
@@ -44,11 +38,7 @@ class Task extends POI implements JsonSerializable
     {
         return $this->type;
     }
-    
-    function getRelatedTaskId()
-    {
-        return $this->relatedTaskId;
-    }
+
 
     
     public function jsonSerialize()
@@ -58,8 +48,7 @@ class Task extends POI implements JsonSerializable
             "task" => $this->task,
             "type" => $this->type,
             "latitude" => $this->latitude,
-            "longitude" => $this->longitude,
-            "relatedTaskId" => $this->relatedTaskId
+            "longitude" => $this->longitude
         ];
     }
 
