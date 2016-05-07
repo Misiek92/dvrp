@@ -67,6 +67,19 @@ class GreedyThree
         ];
     }
 
+    public function getTheLongestDistance()
+    {
+        $theLongest = 0;
+        foreach ($this->theBestRoute as $i => $route) {
+            $distance = $route[0]->getDistance();
+            if ($distance > $theLongest) {
+                $theLongest = $distance;
+            }
+        }
+
+        return $theLongest;
+    }
+
     public function theLongest()
     {
         $theLongest = 0;
@@ -89,7 +102,7 @@ class GreedyThree
         return round($miliseconds, 4) . " sekund";
     }
 
-    private function totalDistance()
+    public function totalDistance()
     {
         $distance = 0;
         foreach ($this->theBestRoute as $route) {

@@ -61,6 +61,19 @@ class Naive
         ];
     }
 
+    public function getTheLongestDistance()
+    {
+        $theLongest = 0;
+        foreach ($this->theBestRoute as $i => $route) {
+            $distance = $route[0]->getDistance();
+            if ($distance > $theLongest) {
+                $theLongest = $distance;
+            }
+        }
+
+        return $theLongest;
+    }
+
     public function theLongest()
     {
         $theLongest = 0;

@@ -87,6 +87,19 @@ class FinishFirst
         return round($theLongest, 2) . " (ID: " .$id.")";
     }
 
+    public function getTheLongestDistance()
+    {
+        $theLongest = 0;
+        foreach ($this->theBestRoute as $i => $route) {
+            $distance = $route[0]->getDistance();
+            if ($distance > $theLongest) {
+                $theLongest = $distance;
+            }
+        }
+
+        return $theLongest;
+    }
+
     private function dateDifference()
     {
         $miliseconds = $this->microTimeEnd - $this->microTime;
@@ -94,7 +107,7 @@ class FinishFirst
         return round($miliseconds, 4) . " sekund";
     }
 
-    private function totalDistance()
+    public function totalDistance()
     {
         $distance = 0;
         foreach ($this->theBestRoute as $route) {
