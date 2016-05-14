@@ -10,8 +10,8 @@ require_once 'GreedyThree.php';
 require_once 'FinishFirst.php';
 
 const DATA_FILE = "../data.json";
-const LOOPS = 5;
-const TASKS = 10;
+const LOOPS = 1;
+const TASKS = 6;
 const RESOURCES = 3;
 
 $algorithms = ["#1 Idz do najblizszego", "#2 Najblizszy na danym etapie", "#3 Najmniej wydluzajacy sciezke", "#4 Priorytet dla konczenia zadan"];
@@ -145,7 +145,7 @@ for ($i = 0; $i < LOOPS; $i++) {
     $scenarios[] = [$finishFirst->getTheLongestDistance(), $finishFirst->totalDistance()];
     clearDistances($resources);
 
-    if (TASKS <= 5 && RESOURCES <= 3) {
+    if (TASKS <= 6 && RESOURCES <= 3) {
         $naive = new Naive($date->format('YmdHis') . "." . $unique, $tasks, $resources);
         $naive->execute();
         $naive->getInfo();

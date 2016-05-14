@@ -174,7 +174,7 @@ class Naive
             yield $c;
     }
 
-    private function checkOrder($array)
+    private function checkOrder(&$array)
     {
         $correctArray = [];
         $used = [];
@@ -195,6 +195,7 @@ class Naive
                     $used[] = $element;
                 }
             }
+            array_shift($array);
         }
         if (count($used) == count($array)) {
             $correctArray[] = $used;
