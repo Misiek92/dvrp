@@ -79,9 +79,8 @@ class Naive
         $theLongest = 0;
         $id = null;
         foreach ($this->theBestRoute as $i => $route) {
-            $distance = $route[0]->getDistance();
-            if ($distance > $theLongest) {
-                $theLongest = $distance;
+            if (isset($route[0]) && $route[0]->getDistance() > $theLongest) {
+                $theLongest = $route[0]->getDistance();
                 $id = $i;
             }
         }
@@ -116,11 +115,13 @@ class Naive
         return round($miliseconds, 4) . " sekund";
     }
 
-    private function totalDistance()
+    public function totalDistance()
     {
         $distance = 0;
         foreach ($this->theBestRoute as $route) {
-            $distance += $route[0]->getDistance();
+            if (isset($route[0])) {
+                $distance += $route[0]->getDistance();
+            }
         }
         return $distance;
     }
@@ -195,7 +196,7 @@ class Naive
                     $used[] = $element;
                 }
             }
-            array_shift($array);
+            //array_shift($array);
         }
         if (count($used) == count($array)) {
             $correctArray[] = $used;
